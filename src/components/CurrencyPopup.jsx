@@ -1,4 +1,4 @@
-// CurrencyPopup.jsx – Warm Woodsy Theme
+// CurrencyPopup.jsx 
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 
@@ -102,13 +102,15 @@ const Label = styled.div`
 
 const CoinLabel = styled.div`
   font-size: 14px;
-  color: #78350f;
+  font-weight: 800;
+  color: #fefce8;
   margin-top: 4px;
-  font-weight: bold;
-  background: rgba(255, 255, 255, 0.6);
+  linear-gradient(to right, #fbbf24, #f59e0b);
+  padding: 5px 10px;
   border-radius: 9999px;
-  padding: 2px 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fcd34d;
+  animation: ${pulse} 1.2s ease-in-out infinite;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 `;
 
 const CurrencyPopup = ({ popup }) => {
@@ -124,7 +126,7 @@ const CurrencyPopup = ({ popup }) => {
           <CoinEmoji>$</CoinEmoji>
         </Text>
         {isTreeBonus && <Label>🌳Tree Bonus!</Label>}
-        {isCoin && <CoinLabel>✨Coin Found!</CoinLabel>}
+        {isCoin && <CoinLabel>🪙Coin Found!</CoinLabel>}
       </Content>
     </Popup>
   );

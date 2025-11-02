@@ -26,7 +26,7 @@ const BodyWrapper = styled.div`
   top: 0;
   left: 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #d9f99d 0%, #fef3c7 50%, #a7f3d0 100%);
+  background: linear-gradient(60deg, #253c15ff 10%, #146627ff 30%, #8b5d13ff 60%, #d45b1eff 100%);
 `;
 
 // ====== GAME BOX ======
@@ -35,16 +35,16 @@ const GameBox = styled.div`
   background: linear-gradient(160deg, #fefce8, #f5f3c8);
   border-radius: 28px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  padding: 40px 60px;
-  height: 75vh;
-  margin: 0 200px;
   top: 50%;
-  transform: translateY(-50%);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  padding: 50px;
+  margin: 10px 200px;
   z-index: 5;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 40px;
+  gap: 100px;
   overflow: hidden;
 
   &::before {
@@ -55,15 +55,15 @@ const GameBox = styled.div`
     background-image:
       repeating-linear-gradient(
         45deg,
-        rgba(139, 92, 46, 0.04) 0px,
-        rgba(139, 92, 46, 0.04) 2px,
+        rgba(101, 67, 33, 0.08) 0px,
+        rgba(101, 67, 33, 0.08) 2px,
         transparent 2px,
         transparent 4px
       ),
       repeating-linear-gradient(
         -45deg,
-        rgba(120, 85, 40, 0.03) 0px,
-        rgba(120, 85, 40, 0.03) 3px,
+        rgba(80, 50, 20, 0.06) 0px,
+        rgba(80, 50, 20, 0.06) 3px,
         transparent 3px,
         transparent 6px
       );
@@ -76,7 +76,7 @@ const GameBox = styled.div`
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    border: 2px solid rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(210, 180, 140, 0.3);
     pointer-events: none;
     z-index: 2;
   }
@@ -84,24 +84,29 @@ const GameBox = styled.div`
 
 // ====== LEFT + RIGHT WRAPPERS ======
 const LeftSide = styled.div`
-  flex: 1.2;
+  flex: 1.5;
   display: flex;
   flex-direction: column;
+  height: 80vh;
   align-items: center;
+  background: linear-gradient(135deg, #4a2c0f 0%, #6b4423 50%, #8b5a3c 100%);
+  border: 10px solid #2c1810;
+  border-radius: 28px;
   justify-content: center;
   gap: 20px;
   position: relative;
   z-index: 3;
+  box-shadow: 0 8px 32px rgba(74, 44, 15, 0.6),
+              inset 0 2px 4px rgba(210, 180, 140, 0.15);
 `;
 
 const RightSide = styled.div`
-  flex: 0.8;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: flex-end;
+  justify-content: center;
   gap: 20px;
-  position: relative;
 `;
 
 export default function TreeClickerGame() {
@@ -129,6 +134,7 @@ export default function TreeClickerGame() {
         <GameBox>
           {/* Left side: Forest Scene */}
           <LeftSide>
+            <Instructions />
             <Tree
               health={treeHealth}
               maxHealth={maxTreeHealth}
@@ -136,7 +142,6 @@ export default function TreeClickerGame() {
               isShaking={shakeTree}
             />
             <GnomeWorkers count={gnomeCount} />
-            <Instructions />
             
             {/* Floating visuals - left side only */}
             <CurrencyPopupContainer popups={currencyPopups} />

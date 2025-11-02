@@ -19,20 +19,19 @@ const pulseGlow = keyframes`
 `;
 
 const GnomeContainer = styled.div`
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  top: 60px;
   display: flex;
-  gap: 18px;
+  gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
   z-index: 10;
 `;
 
 const Gnome = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
   font-size: 46px;
   animation: ${float} 2.8s ease-in-out infinite;
   animation-delay: ${(props) => props.index * 0.2}s;
@@ -57,15 +56,13 @@ const Glow = styled.div`
 
 const Label = styled.div`
   position: absolute;
-  top: -24px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 60px;
   background: linear-gradient(to right, #fef3c7, #eab308);
   color: #422006;
   font-weight: 800;
-  border-radius: 9999px;
+  border-radius: 9px;
   padding: 4px 12px;
-  font-size: 14px;
+  font-size: 12px;
   border: 2px solid rgba(120, 85, 40, 0.4);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   animation: ${fadeIn} 1s ease forwards;
@@ -82,7 +79,7 @@ const GnomeWorkers = ({ count }) => {
           <span role="img" aria-label="gnome">
             🧙‍♂️
           </span>
-          <Label>Helper</Label>
+          <Label>Worker</Label>
         </Gnome>
       ))}
     </GnomeContainer>

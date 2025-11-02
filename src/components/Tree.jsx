@@ -1,4 +1,5 @@
 // Tree.jsx
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
 
@@ -27,9 +28,10 @@ const Container = styled.div`
 
   &:hover {
     transform: scale(1.05);
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="24">🪓</text></svg>') 16 16, pointer;
   }
 
-  ${props => props.isShaking && `
+  ${props => props.isShaking && css`
     animation: ${shake} 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
   `}
 `;
@@ -137,16 +139,21 @@ const HealthMax = styled.span`
 `;
 
 const Tree = ({ health, maxHealth, onCut, isShaking }) => {
+  const [isShakingInternal, setIsShakingInternal] = useState(false);
   const healthPercentage = (health / maxHealth) * 100;
 
   const handleMouseDown = (e) => {
     if (e.button === 0) {
-      onCut(); // Only left click
+      // Trigger shake animation
+      setIsShakingInternal(true);
+      setTimeout(() => setIsShakingInternal(false), 450); // Match animation duration
+      
+      onCut(); // Call the parent callback
     }
   };
 
   return (
-    <Container onMouseDown={handleMouseDown} isShaking={isShaking}>
+    <Container onMouseDown={handleMouseDown} isShaking={isShakingInternal || isShaking}>
       <Glow />
       <Emoji>🌳</Emoji>
       <ClickIndicator>🪓</ClickIndicator>

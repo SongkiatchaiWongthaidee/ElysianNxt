@@ -15,7 +15,7 @@ const fadeIn = keyframes`
 
 const Container = styled.div`
   position: absolute;
-  top: -15%;
+  top: 10%;
   width: 15vw;
   text-align: center;
   font-size: 18px;
@@ -24,7 +24,7 @@ const Container = styled.div`
   background: linear-gradient(160deg, #fefce8, #f5f3c8, #fde68a);
   border-radius: 9999px;
   border: 2px solid rgba(120, 85, 40, 0.4);
-  padding: 10px 5px;
+  padding: 10px;
   box-shadow: 0 4px 12px rgba(107, 83, 34, 0.35);
   animation: ${fadeIn} 1s ease, ${float} 4s ease-in-out infinite;
   z-index: 12;

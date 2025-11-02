@@ -15,8 +15,6 @@ const pulse = keyframes`
 `;
 
 const Container = styled.div`
-  position: relative;
-  margin-left: auto;
   text-align: right;
   background: linear-gradient(145deg, #fef9c3, #fcd34d, #eab308);
   border-radius: 18px;
