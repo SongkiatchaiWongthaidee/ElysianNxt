@@ -27,7 +27,7 @@ const Content = styled.div`
   filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.4));
   font-size: 32px;
   position: relative;
-  ${props => props.isTreeBonus && 'transform: scale(1.3);'}
+  ${props => props.isTreeBonus && 'transform: scale(1.2);'}
 `;
 
 const Glow = styled.div`
@@ -55,8 +55,7 @@ const Glow = styled.div`
 const Text = styled.div`
   position: relative;
   z-index: 10;
-  display: flex;
-  align-items: center;
+  text-align: center;
   gap: 8px;
   background: rgba(255, 255, 255, 0.75);
   border-radius: 9999px;
@@ -122,10 +121,10 @@ const CurrencyPopup = ({ popup }) => {
         <Glow type={popup.type} />
         <Text type={popup.type}>
           <Amount>+{popup.amount}</Amount>
-          <CoinEmoji>💰</CoinEmoji>
+          <CoinEmoji>$</CoinEmoji>
         </Text>
-        {isTreeBonus && <Label>🌳 Tree Bonus! 🪓</Label>}
-        {isCoin && <CoinLabel>✨ Coin Found! ✨</CoinLabel>}
+        {isTreeBonus && <Label>🌳Tree Bonus!</Label>}
+        {isCoin && <CoinLabel>✨Coin Found!</CoinLabel>}
       </Content>
     </Popup>
   );

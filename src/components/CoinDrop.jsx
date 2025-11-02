@@ -69,19 +69,8 @@ const Value = styled.div`
   background: linear-gradient(to right, #fef3c7, #fde68a);
   border: 2px solid #d97706;
   border-radius: 9999px;
-  padding: 4px 10px;
+  padding: 4px 20px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-`;
-
-const Indicator = styled.div`
-  position: absolute;
-  top: -36px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 20px;
-  opacity: 0.6;
-  animation: ${bounce} 0.7s ease-in-out infinite;
-  pointer-events: none;
 `;
 
 const CoinDrop = ({ coin, onCollect }) => {
@@ -90,10 +79,9 @@ const CoinDrop = ({ coin, onCollect }) => {
       <Content>
         <Glow />
         <Coin className="coin-drop-coin">
-          <Emoji>💰</Emoji>
+          <Emoji>$</Emoji>
         </Coin>
-        <Value>+{coin.value} $</Value>
-        <Indicator>👆</Indicator>
+        <Value>+{coin.value}$</Value>
       </Content>
     </Drop>
   );

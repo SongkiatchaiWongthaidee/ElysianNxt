@@ -1,12 +1,12 @@
-// CurrencyDisplay.jsx – Warm Woodsy Theme
+// CurrencyDisplay.jsx — Warm Woodsy Theme
 import React from "react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { Coins, TrendingUp } from "lucide-react";
+import { Coins } from "lucide-react";
 
 const floatSlow = keyframes`
-  0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
-  50% { transform: translateX(-50%) translateY(-6px) scale(1.02); }
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.02); }
 `;
 
 const pulse = keyframes`
@@ -15,15 +15,13 @@ const pulse = keyframes`
 `;
 
 const Container = styled.div`
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  margin-left: auto;
+  text-align: right;
   background: linear-gradient(145deg, #fef9c3, #fcd34d, #eab308);
   border-radius: 18px;
   box-shadow: 0 6px 20px rgba(107, 83, 34, 0.5);
-  padding: 18px 28px;
-  z-index: 20;
+  padding: 16px 24px;
   border: 3px solid #78350f;
   animation: ${floatSlow} 7s ease-in-out infinite;
 `;
@@ -31,8 +29,9 @@ const Container = styled.div`
 const Amount = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 36px;
+  justify-content: center;
+  gap: 10px;
+  font-size: 28px;
   font-weight: 900;
   color: #422006;
   text-shadow: 0 3px 6px rgba(255, 255, 255, 0.4);
@@ -40,8 +39,8 @@ const Amount = styled.div`
 `;
 
 const CoinIcon = styled(Coins)`
-  width: 42px;
-  height: 42px;
+  width: 32px;
+  height: 32px;
   color: #92400e;
   animation: ${pulse} 2.5s ease-in-out infinite;
 `;
@@ -49,8 +48,9 @@ const CoinIcon = styled(Coins)`
 const Passive = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 12px;
   color: #4d7c0f;
   margin-top: 8px;
   background: rgba(255, 255, 255, 0.5);
@@ -58,12 +58,6 @@ const Passive = styled.div`
   padding: 4px 12px;
   font-weight: 600;
   border: 2px solid rgba(107, 83, 34, 0.3);
-`;
-
-const TrendIcon = styled(TrendingUp)`
-  width: 16px;
-  height: 16px;
-  color: #65a30d;
 `;
 
 const CurrencyDisplay = ({
@@ -79,9 +73,8 @@ const CurrencyDisplay = ({
       </Amount>
       {passiveIncome > 0 && (
         <Passive>
-          <TrendIcon />
           <span>
-            +{passiveIncome} gold every {(tickRate / 1000).toFixed(1)}s
+            +{passiveIncome} every {(tickRate / 1000).toFixed(1)}s
           </span>
         </Passive>
       )}

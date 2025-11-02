@@ -1,3 +1,4 @@
+// UpgradePanel.jsx
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { Sparkles } from 'lucide-react';
@@ -9,23 +10,19 @@ const pulse = keyframes`
 `;
 
 const Panel = styled.div`
-  position: fixed;
-  top: 50%;
-  right: 24px;
-  transform: translateY(-50%);
+  position: relative;
   background: linear-gradient(135deg, rgba(166, 147, 116, 0.95), rgba(136, 170, 118, 0.95));
   backdrop-filter: blur(20px);
-  border-radius: 16px;
-  box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.3);
-  padding: 24px;
-  z-index: 20;
-  width: 360px;
-  max-height: 85vh;
+  border-radius: 14px;
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
+  padding: 18px;
+  width: 100%;
+  max-height: 60vh;
   overflow-y: auto;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
 
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -37,22 +34,22 @@ const Panel = styled.div`
 const Header = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 `;
 
 const TitleIcon = styled(Sparkles)`
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   color: #facc15;
   animation: ${pulse} 2s ease-in-out infinite;
 `;
 
 const Title = styled.h3`
   font-weight: 900;
-  font-size: 22px;
+  font-size: 18px;
   color: #fef9c3;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
   margin: 0;
@@ -61,28 +58,28 @@ const Title = styled.h3`
 const Button = styled.button`
   width: 100%;
   color: white;
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 12px;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
   transition: all 0.3s;
   border: none;
   background: ${props => {
     if (props.disabled) return 'linear-gradient(to right, #9ca3af, #6b7280)';
     switch(props.upgradeType) {
-      case 'clickpower': return 'linear-gradient(to right, #84cc16, #65a30d)';
-      case 'passiveincome': return 'linear-gradient(to right, #22c55e, #15803d)';
-      case 'tickspeed': return 'linear-gradient(to right, #a3e635, #65a30d)';
+      case 'clickPower': return 'linear-gradient(to right, #84cc16, #65a30d)';
+      case 'passiveIncome': return 'linear-gradient(to right, #22c55e, #15803d)';
+      case 'tickSpeed': return 'linear-gradient(to right, #a3e635, #65a30d)';
       case 'gnomes': return 'linear-gradient(to right, #60a5fa, #3b82f6)';
       default: return 'linear-gradient(to right, #6ee7b7, #34d399)';
     }
   }};
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
   cursor: pointer;
 
   &:not(:disabled):hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
   &:disabled {
@@ -108,17 +105,17 @@ const ButtonTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 `;
 
 const ButtonInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 `;
 
 const ButtonIcon = styled.span`
-  font-size: 24px;
+  font-size: 20px;
 `;
 
 const ButtonText = styled.div`
@@ -127,30 +124,30 @@ const ButtonText = styled.div`
 
 const ButtonName = styled.div`
   font-weight: bold;
-  font-size: 15px;
+  font-size: 13px;
 `;
 
 const ButtonLevel = styled.div`
-  font-size: 12px;
+  font-size: 10px;
   opacity: 0.9;
 `;
 
 const ButtonCost = styled.div`
   background: rgba(0, 0, 0, 0.25);
-  padding: 6px 10px;
-  border-radius: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 11px;
   border: 1px solid rgba(255, 255, 255, 0.2);
 `;
 
 const ButtonStats = styled.div`
-  font-size: 12px;
+  font-size: 10px;
   opacity: 0.95;
   text-align: left;
   background: rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
-  padding: 6px 12px;
+  border-radius: 6px;
+  padding: 4px 10px;
   font-weight: 500;
 `;
 
@@ -202,7 +199,7 @@ const UpgradePanel = ({
   if (!upgrades || Object.keys(upgrades).length === 0) {
     return (
       <Panel>
-        <p style={{color: 'white'}}>Loading upgrades...</p>
+        <p style={{color: 'white', fontSize: '12px'}}>Loading upgrades...</p>
       </Panel>
     );
   }

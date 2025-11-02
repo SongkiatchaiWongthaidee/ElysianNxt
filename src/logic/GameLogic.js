@@ -1,3 +1,4 @@
+// GameLogic.js - FIXED VERSION
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { GAME_CONFIG, UPGRADE_CONFIG } from '../utils/constants';
 
@@ -36,39 +37,10 @@ export const useGameLogic = () => {
   const [coinDrops, setCoinDrops] = useState([]);
   const [shakeTree, setShakeTree] = useState(false);
   
-  // Refs for unique IDs
+  // Refs for unique IDs and preventing rapid clicks
   const popupIdRef = useRef(0);
   const coinIdRef = useRef(0);
-
-  // Calculate click power based on tree cut
-  const cutTree = useCallback(() => {
-    setShakeTree(true);
-    setTimeout(() => setShakeTree(false), 200);
-    
-    const damage = clickPower;
-    const income = clickPower * gnomeCount;
-    
-    setCurrency(prev => prev + income);
-    
-    setTreeHealth(prev => {
-      const newHealth = prev - damage;
-      if (newHealth <= 0) {
-        // Tree cut down! Bonus currency
-        const bonus = income * GAME_CONFIG.TREE_BONUS_MULTIPLIER;
-        setCurrency(c => c + bonus);
-        createCurrencyPopup(bonus, 'tree');
-        
-        // Respawn tree with more health
-        const newMaxHealth = GAME_CONFIG.INITIAL_TREE_HEALTH + 
-          Math.floor(currency / 100) * GAME_CONFIG.TREE_HEALTH_INCREMENT;
-        setMaxTreeHealth(newMaxHealth);
-        return newMaxHealth;
-      }
-      return newHealth;
-    });
-    
-    createCurrencyPopup(income, 'click');
-  }, [clickPower, gnomeCount, currency]);
+  const isProcessingClick = useRef(false); // Prevent rapid double-clicks
 
   // Create floating currency popup
   const createCurrencyPopup = useCallback((amount, type) => {
@@ -88,12 +60,50 @@ export const useGameLogic = () => {
     }, GAME_CONFIG.POPUP_DURATION);
   }, []);
 
+  // Calculate click power based on tree cut
+  const cutTree = useCallback(() => {
+    // Prevent double-click issues
+    if (isProcessingClick.current) return;
+    isProcessingClick.current = true;
+    
+    setShakeTree(true);
+    setTimeout(() => setShakeTree(false), 200);
+    
+    const damage = clickPower;
+    const income = clickPower * gnomeCount;
+    const willCutDown = treeHealth - damage <= 0;
+    
+    setCurrency(prev => prev + income);
+    
+    if (willCutDown) {
+      // Tree will be cut down!
+      const bonus = income * GAME_CONFIG.TREE_BONUS_MULTIPLIER;
+      setCurrency(c => c + bonus);
+      createCurrencyPopup(bonus, 'tree');
+      
+      // Respawn tree with more health
+      const newMaxHealth = GAME_CONFIG.INITIAL_TREE_HEALTH + 
+        Math.round(currency / 100) * GAME_CONFIG.TREE_HEALTH_INCREMENT;
+      setMaxTreeHealth(newMaxHealth);
+      setTreeHealth(newMaxHealth);
+    } else {
+      // Normal hit
+      setTreeHealth(prev => prev - damage);
+      createCurrencyPopup(income, 'click'); 
+    }
+    
+    // Allow next click after short delay
+    setTimeout(() => {
+      isProcessingClick.current = false;
+    }, 100);
+  }, [clickPower, gnomeCount, treeHealth, currency, createCurrencyPopup]);
+
   // Spawn collectible coin
   const spawnCoin = useCallback(() => {
     const id = coinIdRef.current++;
     const x = Math.random() * 85 + 5;
     const y = Math.random() * 70 + 10;
-    const value = Math.floor(
+    const value = Math.round(
       Math.random() * (GAME_CONFIG.COIN_MAX_VALUE - GAME_CONFIG.COIN_MIN_VALUE)
     ) + GAME_CONFIG.COIN_MIN_VALUE;
     
@@ -121,7 +131,7 @@ export const useGameLogic = () => {
       setCurrency(prev => prev - upgrade.cost);
       
       const newLevel = upgrade.level + 1;
-      const newCost = Math.floor(upgrade.cost * config.costMultiplier);
+      const newCost = Math.round(upgrade.cost * config.costMultiplier);
       
       setUpgrades(prev => ({
         ...prev,
@@ -131,16 +141,16 @@ export const useGameLogic = () => {
       // Apply upgrade effects
       switch(type) {
         case 'clickPower':
-          setClickPower(prev => Math.floor(prev * config.powerMultiplier));
+          setClickPower(prev => Math.round(prev * config.powerMultiplier));
           break;
         case 'passiveIncome':
           setPassiveIncome(prev => 
-            prev + Math.floor(config.baseIncome * Math.pow(config.incomeMultiplier, newLevel))
+            prev + Math.round(config.baseIncome * Math.pow(config.incomeMultiplier, newLevel))
           );
           break;
         case 'tickSpeed':
           setTickRate(prev => 
-            Math.max(config.minTickRate, Math.floor(prev * config.speedMultiplier))
+            Math.max(config.minTickRate, Math.round(prev * config.speedMultiplier))
           );
           break;
         case 'gnomes':

@@ -1,6 +1,6 @@
 // App.jsx
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
+import { Global, css } from '@emotion/react';
 import { useGameLogic } from './logic/gameLogic';
 import CurrencyDisplay from './components/CurrencyDisplay';
 import UpgradePanel from './components/UpgradePanel';
@@ -10,18 +10,13 @@ import CurrencyPopupContainer from './components/CurrencyPopup';
 import CoinDropContainer from './components/CoinDrop';
 import Instructions from './components/Instructions';
 
-// ====== ANIMATIONS ======
-const float = keyframes`
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+const globalStyles = css`
+  * {
+    font-family: 'Silkscreen', monospace;
+  }
 `;
 
-const floatSlow = keyframes`
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(20px, -20px); }
-`;
-
-// ====== BODY BACKGROUND ======
+// ====== BACKGROUND ======
 const BodyWrapper = styled.div`
   margin: 0;
   padding: 0;
@@ -34,38 +29,23 @@ const BodyWrapper = styled.div`
   background: linear-gradient(135deg, #d9f99d 0%, #fef3c7 50%, #a7f3d0 100%);
 `;
 
-// ====== MOVING BACKGROUND ELEMENTS ======
-const MovingBg = styled.div`
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  top: -50%;
-  left: -50%;
-  background: 
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(187,247,208,0.3), transparent 50%);
-  animation: ${floatSlow} 18s ease-in-out infinite alternate;
-  z-index: 0;
-`;
-
-// ====== COZY GAME BOX ======
+// ====== GAME BOX ======
 const GameBox = styled.div`
   position: relative;
   background: linear-gradient(160deg, #fefce8, #f5f3c8);
   border-radius: 28px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  padding: 48px;
-  width: 960px;        /* increased width */
-  max-width: 95vw;
-  height: 85vh;        /* slightly taller */
-  margin: auto;
+  padding: 40px 60px;
+  height: 75vh;
+  margin: 0 200px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 5;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  gap: 40px;
+  overflow: hidden;
 
   &::before {
     content: "";
@@ -102,15 +82,26 @@ const GameBox = styled.div`
   }
 `;
 
-
-// ====== GAME AREA ======
-const GameArea = styled.div`
-  position: relative;
-  z-index: 3;
+// ====== LEFT + RIGHT WRAPPERS ======
+const LeftSide = styled.div`
+  flex: 1.2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
+  position: relative;
+  z-index: 3;
+`;
+
+const RightSide = styled.div`
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  position: relative;
 `;
 
 export default function TreeClickerGame() {
@@ -132,36 +123,45 @@ export default function TreeClickerGame() {
   } = useGameLogic();
 
   return (
-    <BodyWrapper>
-      <MovingBg />
-      <GameBox>
-        <CurrencyDisplay 
-          currency={currency}
-          passiveIncome={passiveIncome}
-          tickRate={tickRate}
-        />
-        <UpgradePanel
-          currency={currency}
-          upgrades={upgrades}
-          clickPower={clickPower}
-          passiveIncome={passiveIncome}
-          tickRate={tickRate}
-          gnomeCount={gnomeCount}
-          onPurchaseUpgrade={purchaseUpgrade}
-        />
-        <CurrencyPopupContainer popups={currencyPopups} />
-        <CoinDropContainer coins={coinDrops} onCollect={collectCoin} />
-        <GameArea>
-          <Tree 
-            health={treeHealth}
-            maxHealth={maxTreeHealth}
-            onCut={cutTree}
-            isShaking={shakeTree}
-          />
-          <GnomeWorkers count={gnomeCount} />
-          <Instructions />
-        </GameArea>
-      </GameBox>
-    </BodyWrapper>
+    <>
+      <Global styles={globalStyles} />
+      <BodyWrapper>
+        <GameBox>
+          {/* Left side: Forest Scene */}
+          <LeftSide>
+            <Tree
+              health={treeHealth}
+              maxHealth={maxTreeHealth}
+              onCut={cutTree}
+              isShaking={shakeTree}
+            />
+            <GnomeWorkers count={gnomeCount} />
+            <Instructions />
+            
+            {/* Floating visuals - left side only */}
+            <CurrencyPopupContainer popups={currencyPopups} />
+            <CoinDropContainer coins={coinDrops} onCollect={collectCoin} />
+          </LeftSide>
+
+          <RightSide>
+            <CurrencyDisplay
+              currency={currency}
+              passiveIncome={passiveIncome}
+              tickRate={tickRate}
+            />
+
+            <UpgradePanel
+              currency={currency}
+              upgrades={upgrades}
+              clickPower={clickPower}
+              passiveIncome={passiveIncome}
+              tickRate={tickRate}
+              gnomeCount={gnomeCount}
+              onPurchaseUpgrade={purchaseUpgrade}
+            />
+          </RightSide>
+        </GameBox>
+      </BodyWrapper>
+    </>
   );
 }

@@ -1,15 +1,15 @@
-// Game configuration and constants
+// constants.js
 export const GAME_CONFIG = {
   INITIAL_CURRENCY: 0,
   INITIAL_CLICK_POWER: 1,
   INITIAL_PASSIVE_INCOME: 0,
   INITIAL_TICK_RATE: 2000, // milliseconds
-  INITIAL_TREE_HEALTH: 100,
+  INITIAL_TREE_HEALTH: 10,
   INITIAL_GNOME_COUNT: 1,
   
-  COIN_DROP_CHANCE: 0.3, // 30% chance
-  COIN_DROP_INTERVAL: 3000, // Check every 3 seconds
-  COIN_DESPAWN_TIME: 5000, // Coins disappear after 5 seconds
+  COIN_DROP_CHANCE: 0.4, // 40% chance
+  COIN_DROP_INTERVAL: 2000, // Check every 3 seconds
+  COIN_DESPAWN_TIME: 10000, // Coins disappear after 10 seconds
   COIN_MIN_VALUE: 5,
   COIN_MAX_VALUE: 25,
   
