@@ -21,7 +21,7 @@ const pulseGlow = keyframes`
 const GnomeContainer = styled.div`
   position: absolute;
   user-select: none;
-  bottom: 25px;
+  bottom: 50px;
   display: flex;
   gap: 27px;
   flex-wrap: wrap;
