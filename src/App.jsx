@@ -34,8 +34,6 @@ const GameBox = styled.div`
   position: relative;
   background: linear-gradient(160deg, #fefce8, #f5f3c8);
   border-radius: 28px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  top: 50%;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   padding: 50px;
   margin: 10px 200px;
@@ -43,7 +41,6 @@ const GameBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 40px;
   gap: 100px;
   overflow: hidden;
 
