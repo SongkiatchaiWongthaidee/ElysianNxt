@@ -15,20 +15,16 @@ const shimmer = keyframes`
   100% { transform: translateX(100%); }
 `;
 
-const pulse = keyframes`
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
-`;
-
 const Container = styled.div`
   cursor: pointer;
   user-select: none;
   transition: transform 0.3s;
   position: relative;
+  bottom: 12px;
 
   &:hover {
     transform: scale(1.05);
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="24">🪓</text></svg>') 16 16, pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 32 32"><text y="24" font-size="24">🪓</text></svg>') 16 16, pointer;
   }
 
   ${props => props.isShaking && css`
@@ -53,6 +49,7 @@ const Emoji = styled.div`
   filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.45));
   transition: all 0.3s ease;
   position: relative;
+  bottom: 15px;
   z-index: 10;
 
   ${Container}:hover & {
@@ -60,26 +57,12 @@ const Emoji = styled.div`
   }
 `;
 
-const ClickIndicator = styled.div`
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  font-size: 52px;
-  pointer-events: none;
-  animation: ${pulse} 1.2s ease-in-out infinite;
-  ${Container}:hover & {
-    opacity: 0.8;
-  }
-`;
-
 const HealthContainer = styled.div`
-  position: absolute;
+  position: relative;
   bottom: -64px;
   left: 50%;
-  transform: translateX(-50%);
-  width: 320px;
+  top: 10%;
+  transform: translate(-50%, -50%);
 `;
 
 const HealthBar = styled.div`
@@ -156,7 +139,7 @@ const Tree = ({ health, maxHealth, onCut, isShaking }) => {
     <Container onMouseDown={handleMouseDown} isShaking={isShakingInternal || isShaking}>
       <Glow />
       <Emoji>🌳</Emoji>
-      <ClickIndicator>🪓</ClickIndicator>
+      {/* <ClickIndicator>🪓</ClickIndicator> */}
 
       <HealthContainer>
         <HealthBar>

@@ -8,7 +8,7 @@ export const GAME_CONFIG = {
   INITIAL_GNOME_COUNT: 1,
   
   COIN_DROP_CHANCE: 0.4, // 40% chance
-  COIN_DROP_INTERVAL: 2000, // Check every 3 seconds
+  COIN_DROP_INTERVAL: 2000, // Check every 2 seconds
   COIN_DESPAWN_TIME: 10000, // Coins disappear after 10 seconds
   COIN_MIN_VALUE: 5,
   COIN_MAX_VALUE: 25,

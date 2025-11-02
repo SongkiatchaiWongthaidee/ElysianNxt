@@ -15,14 +15,14 @@ const fadeIn = keyframes`
 
 const Container = styled.div`
   position: absolute;
-  top: 10%;
-  width: 15vw;
+  top: 5%;
+  width: 200px;
   text-align: center;
   font-size: 18px;
   font-weight: 700;
   color: #3f3f46;
   background: linear-gradient(160deg, #fefce8, #f5f3c8, #fde68a);
-  border-radius: 9999px;
+  border-radius: 20px;
   border: 2px solid rgba(120, 85, 40, 0.4);
   padding: 10px;
   box-shadow: 0 4px 12px rgba(107, 83, 34, 0.35);

@@ -18,8 +18,6 @@ const globalStyles = css`
 
 // ====== BACKGROUND ======
 const BodyWrapper = styled.div`
-  margin: 0;
-  padding: 0;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -27,6 +25,9 @@ const BodyWrapper = styled.div`
   left: 0;
   overflow: hidden;
   background: linear-gradient(60deg, #253c15ff 10%, #146627ff 30%, #8b5d13ff 60%, #d45b1eff 100%);
+  display: flex;
+  align-items: center; 
+  justify-content: center;
 `;
 
 // ====== GAME BOX ======
@@ -36,7 +37,7 @@ const GameBox = styled.div`
   border-radius: 28px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   padding: 50px;
-  margin: 10px 200px;
+  margin: 0 400px;
   z-index: 5;
   display: flex;
   justify-content: space-between;
@@ -81,10 +82,10 @@ const GameBox = styled.div`
 
 // ====== LEFT + RIGHT WRAPPERS ======
 const LeftSide = styled.div`
-  flex: 1.5;
+  flex: 1.4;
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  height: 65vh;
   align-items: center;
   background: linear-gradient(135deg, #4a2c0f 0%, #6b4423 50%, #8b5a3c 100%);
   border: 10px solid #2c1810;
@@ -103,7 +104,8 @@ const RightSide = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  gap: 20px;
+  height: 65vh;
+  gap: 5vh;
 `;
 
 export default function TreeClickerGame() {

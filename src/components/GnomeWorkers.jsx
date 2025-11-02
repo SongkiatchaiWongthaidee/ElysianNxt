@@ -19,12 +19,14 @@ const pulseGlow = keyframes`
 `;
 
 const GnomeContainer = styled.div`
-  position: relative;
-  top: 60px;
+  position: absolute;
+  user-select: none;
+  bottom: 25px;
   display: flex;
-  gap: 20px;
+  gap: 27px;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   z-index: 10;
 `;
 
@@ -68,8 +70,31 @@ const Label = styled.div`
   animation: ${fadeIn} 1s ease forwards;
 `;
 
+const PlusIndicator = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 900;
+  color: #dbeafe;
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  border: 3px solid #60a5fa;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+  animation: ${float} 2.8s ease-in-out infinite;
+  animation-delay: 1s;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  margin-top: 25px; 
+  padding: 7px;
+`;
+
 const GnomeWorkers = ({ count }) => {
-  const gnomes = Array.from({ length: count });
+  const maxDisplay = 4;
+  const displayCount = Math.min(count, maxDisplay);
+  const remaining = count - maxDisplay;
+  const gnomes = Array.from({ length: displayCount });
 
   return (
     <GnomeContainer>
@@ -82,6 +107,9 @@ const GnomeWorkers = ({ count }) => {
           <Label>Worker</Label>
         </Gnome>
       ))}
+      {remaining > 0 && (
+        <PlusIndicator>+{remaining}</PlusIndicator>
+      )}
     </GnomeContainer>
   );
 };
