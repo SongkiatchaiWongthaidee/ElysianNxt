@@ -1,7 +1,7 @@
 // App.jsx
 import styled from '@emotion/styled';
 import { Global, css } from '@emotion/react';
-import { useGameLogic } from './logic/gameLogic';
+import { useGameLogic } from './logic/GameLogic';
 import CurrencyDisplay from './components/CurrencyDisplay';
 import UpgradePanel from './components/UpgradePanel';
 import Tree from './components/Tree';
