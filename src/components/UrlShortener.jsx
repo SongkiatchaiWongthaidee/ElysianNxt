@@ -1,15 +1,18 @@
+// UrlShortener.jsx
 import React from 'react';
 import styled from '@emotion/styled';
 import { useURLShortener } from '../logic/UrlLogic.js';
 
 // Styled Components
 const Container = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 20px;
   margin: 0 20px;
-  padding: 40px;
+  padding: 20px;
   background: radial-gradient(circle at 30% 20%, #f5e0b5 0%, #c7a676 35%, #8b5a2b 100%);
   background-attachment: fixed;
   color: #3e2c15;
@@ -21,7 +24,27 @@ const Container = styled.div`
   border: 6px solid rgba(60, 30, 10, 0.5);
   border-radius: 20px;
   position: relative;
-  max-height: 70%;
+  max-height: 90vh;
+  overflow-y: auto; 
+  overflow-x: hidden;
+  
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(139, 90, 43, 0.2);
+    border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #8b5a2b 0%, #6f4221 100%);
+    border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #a97142 0%, #8b5a2b 100%);
+  }
 `;
 
 const InputSection = styled.div`
@@ -34,7 +57,6 @@ const InputSection = styled.div`
   box-shadow: 
     0 8px 20px rgba(93, 64, 55, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  margin-bottom: 30px;
   border: 2px solid #d4a373;
   position: relative;
   animation: slideInFromTop 0.5s ease-out;
@@ -196,130 +218,6 @@ const Button = styled.button`
   }
 `;
 
-const ResultSection = styled.div`
-  background: 
-    linear-gradient(135deg, #e8f3e8 0%, #dcedc8 100%),
-    repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(107, 142, 35, 0.03) 5px, rgba(107, 142, 35, 0.03) 10px);
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-  border-left: 4px solid #6b8e23;
-  box-shadow: 0 4px 12px rgba(107, 142, 35, 0.15);
-  animation: fadeInScale 0.5s ease-out;
-  position: relative;
-  overflow: hidden;
-
-  @keyframes fadeInScale {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, transparent 30%, rgba(107, 142, 35, 0.1) 50%, transparent 70%);
-    animation: shimmer 3s infinite;
-    border-radius: 8px;
-  }
-
-  @keyframes shimmer {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  & > * {
-    position: relative;
-    z-index: 1;
-  }
-`;
-
-const ResultLabel = styled.div`
-  font-weight: 600;
-  color: #4a5f2a;
-  margin-bottom: 10px;
-  animation: slideInLeft 0.5s ease-out;
-
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-`;
-
-const ShortUrlDisplay = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  
-  @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
-`;
-
-const ShortUrl = styled.a`
-  flex: 1;
-  padding: 12px;
-  background: 
-    linear-gradient(to bottom, #fff9f0 0%, #fffbf5 100%);
-  border: 2px solid #6b8e23;
-  border-radius: 6px;
-  color: #d4772f;
-  text-decoration: none;
-  word-break: break-all;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5);
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(212, 119, 47, 0.1), transparent);
-    transition: left 0.5s ease;
-  }
-
-  &:hover {
-    background: linear-gradient(to bottom, #f5f0e8 0%, #f0e8dc 100%);
-    transform: translateX(3px);
-    box-shadow: 
-      -3px 0 8px rgba(107, 142, 35, 0.2),
-      inset 0 1px 2px rgba(255, 255, 255, 0.5);
-  }
-
-  &:hover::before {
-    left: 100%;
-  }
-
-  &:active {
-    transform: translateX(1px);
-  }
-`;
-
 const CopyButton = styled.button`
   padding: 12px 20px;
   background: linear-gradient(135deg, #6b8e23 0%, #5a7a1a 100%);
@@ -413,105 +311,31 @@ const UrlList = styled.div`
 
 const ListTitle = styled.h2`
   color: #5d4037;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  font-size: 1.3rem;
   animation: fadeInDown 0.5s ease-out;
   position: relative;
-  padding-bottom: 10px;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #d4772f 0%, #6b8e23 100%);
-    border-radius: 2px;
-    animation: expandWidth 0.8s ease-out 0.3s backwards;
-  }
-
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes expandWidth {
-    from {
-      width: 0;
-    }
-    to {
-      width: 60px;
-    }
-  }
 `;
 
 const UrlItem = styled.div`
   border: 2px solid #d4a373;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
   border-radius: 8px;
   margin-bottom: 15px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: 
-    linear-gradient(135deg, #fff9f0 0%, #fffbf5 100%);
   box-shadow: 0 2px 8px rgba(212, 163, 115, 0.15);
   animation: slideInRight 0.5s ease-out backwards;
   position: relative;
   overflow: hidden;
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  &:nth-of-type(1) { animation-delay: 0.1s; }
-  &:nth-of-type(2) { animation-delay: 0.2s; }
-  &:nth-of-type(3) { animation-delay: 0.3s; }
-  &:nth-of-type(4) { animation-delay: 0.4s; }
-  &:nth-of-type(5) { animation-delay: 0.5s; }
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 4px;
-    background: linear-gradient(180deg, #d4772f 0%, #6b8e23 100%);
-    transform: scaleY(0);
-    transition: transform 0.4s ease;
-    transform-origin: bottom;
-  }
-
-  &:hover {
-    transform: translateX(8px);
-    box-shadow: 
-      -4px 0 12px rgba(212, 119, 47, 0.2),
-      0 4px 15px rgba(212, 163, 115, 0.3);
-    border-color: #d4772f;
-  }
-
-  &:hover::before {
-    transform: scaleY(1);
-  }
 `;
 
 const UrlItemRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   margin-bottom: 10px;
 
   @media (max-width: 600px) {
@@ -628,15 +452,6 @@ const InputLabel = styled.label`
   position: relative;
   padding-left: 8px;
 
-  &::before {
-    content: '🌿';
-    position: absolute;
-    left: -12px;
-    opacity: 0;
-    transition: all 0.3s ease;
-    transform: translateX(-10px);
-  }
-
   &:hover::before {
     opacity: 1;
     transform: translateX(0);
@@ -651,7 +466,6 @@ function URLShortener() {
     baseUrl,
     setBaseUrl,
     urls,
-    latestShortUrl,
     copied,
     handleShorten,
     handleCopy
@@ -686,20 +500,6 @@ function URLShortener() {
             </Button>
           </InputGroup>
         </div>
-
-        {latestShortUrl && (
-          <ResultSection>
-            <ResultLabel>Here your shortened URL!</ResultLabel>
-            <ShortUrlDisplay>
-              <ShortUrl href={latestShortUrl} target="_blank" rel="noopener noreferrer">
-                {latestShortUrl}
-              </ShortUrl>
-              <CopyButton onClick={() => handleCopy(latestShortUrl)}>
-                {copied ? '✓ Copied!' : 'Copy'}
-              </CopyButton>
-            </ShortUrlDisplay>
-          </ResultSection>
-        )}
       </InputSection>
 
       {urls.length > 0 && (
@@ -714,14 +514,12 @@ function URLShortener() {
                 </div>
               </UrlItemRow>
               <UrlItemRow>
-                <div style={{ flex: 1 }}>
-                  <UrlLabel>SHORT URL</UrlLabel>
-                  <ShortCode href={url.shortUrl} target="_blank" rel="noopener noreferrer">
-                    {url.shortUrl}
-                  </ShortCode>
-                </div>
+                <UrlLabel>SHORT URL</UrlLabel>
+                <ShortCode href={url.shortUrl} target="_blank" rel="noopener noreferrer">
+                  {url.shortUrl}
+                </ShortCode>
                 <CopyButton onClick={() => handleCopy(url.shortUrl)}>
-                  Copy
+                  {copied ? '✓ Copied!' : 'Copy'}
                 </CopyButton>
               </UrlItemRow>
               <UrlLabel style={{ marginTop: '10px' }}>

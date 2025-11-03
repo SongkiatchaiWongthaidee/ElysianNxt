@@ -1,3 +1,4 @@
+// /logic/UrlLogic.js
 import { useState, useEffect } from 'react';
 
 // Custom hook for URL Shortener logic
@@ -5,8 +6,26 @@ export const useURLShortener = () => {
   const [longUrl, setLongUrl] = useState('');
   const [baseUrl, setBaseUrl] = useState('');
   const [urls, setUrls] = useState([]);
-  const [latestShortUrl, setLatestShortUrl] = useState('');
   const [copied, setCopied] = useState(false);
+
+  // Load URLs from localStorage on mount
+  useEffect(() => {
+    const savedUrls = localStorage.getItem('shortenedUrls');
+    if (savedUrls) {
+      try {
+        setUrls(JSON.parse(savedUrls));
+      } catch (error) {
+        console.error('Error loading saved URLs:', error);
+      }
+    }
+  }, []);
+
+  // Save URLs to localStorage whenever they change
+  useEffect(() => {
+    if (urls.length > 0) {
+      localStorage.setItem('shortenedUrls', JSON.stringify(urls));
+    }
+  }, [urls]);
 
   // Initialize base URL from current location
   useEffect(() => {
@@ -104,7 +123,6 @@ export const useURLShortener = () => {
     baseUrl,
     setBaseUrl,
     urls,
-    latestShortUrl,
     copied,
     // Functions
     handleShorten,

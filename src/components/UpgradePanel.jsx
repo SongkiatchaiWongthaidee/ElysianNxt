@@ -20,7 +20,7 @@ const Panel = styled.div`
   padding: 18px;
   padding-left: 24px;
   width: 100%;
-  max-height: 60vh;
+  min-height: 55vh;
   overflow-y: auto;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-left: 6px solid #fbbf24;
