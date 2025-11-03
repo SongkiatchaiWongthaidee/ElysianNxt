@@ -26,7 +26,7 @@ const GnomeContainer = styled.div`
   gap: 27px;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   z-index: 10;
 `;
 
@@ -86,12 +86,12 @@ const PlusIndicator = styled.div`
   animation: ${float} 2.8s ease-in-out infinite;
   animation-delay: 1s;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  margin-top: 25px; 
   padding: 7px;
+  margin-bottom: -30px;
 `;
 
 const GnomeWorkers = ({ count }) => {
-  const maxDisplay = 4;
+  const maxDisplay = 2;
   const displayCount = Math.min(count, maxDisplay);
   const remaining = count - maxDisplay;
   const gnomes = Array.from({ length: displayCount });

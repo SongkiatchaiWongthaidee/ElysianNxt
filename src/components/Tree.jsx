@@ -45,7 +45,7 @@ const Glow = styled.div`
 `;
 
 const Emoji = styled.div`
-  font-size: 200px;
+  font-size: clamp(80px, 20vh, 260px);
   filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.45));
   transition: all 0.3s ease;
   position: relative;

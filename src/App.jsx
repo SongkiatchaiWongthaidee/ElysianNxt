@@ -9,6 +9,7 @@ import GnomeWorkers from './components/GnomeWorkers';
 import CurrencyPopupContainer from './components/CurrencyPopup';
 import CoinDropContainer from './components/CoinDrop';
 import Instructions from './components/Instructions';
+import URLShortener from './components/UrlShortener';
 
 const globalStyles = css`
   * {
@@ -23,27 +24,32 @@ const BodyWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  overflow: hidden;
   background: linear-gradient(60deg, #253c15ff 10%, #146627ff 30%, #8b5d13ff 60%, #d45b1eff 100%);
   display: flex;
   align-items: center; 
   justify-content: center;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 // ====== GAME BOX ======
 const GameBox = styled.div`
   position: relative;
+  width: 50%;
+  height: 65%;
   background: linear-gradient(160deg, #fefce8, #f5f3c8);
   border-radius: 28px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   padding: 50px;
-  margin: 0 400px;
+  margin: 20px;
   z-index: 5;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 100px;
-  overflow: hidden;
+  // overflow: hidden;
 
   &::before {
     content: "";
@@ -78,6 +84,10 @@ const GameBox = styled.div`
     pointer-events: none;
     z-index: 2;
   }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 // ====== LEFT + RIGHT WRAPPERS ======
@@ -105,7 +115,7 @@ const RightSide = styled.div`
   align-items: flex-end;
   justify-content: center;
   height: 65vh;
-  gap: 5vh;
+  gap: 2vh;
 `;
 
 export default function TreeClickerGame() {
@@ -130,6 +140,7 @@ export default function TreeClickerGame() {
     <>
       <Global styles={globalStyles} />
       <BodyWrapper>
+        <URLShortener />
         <GameBox>
           {/* Left side: Forest Scene */}
           <LeftSide>
